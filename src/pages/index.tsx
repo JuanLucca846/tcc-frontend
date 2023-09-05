@@ -7,6 +7,7 @@ import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { AuthContext } from "../contexts/AuthContext";
 import Link from "next/link";
+import { toast } from 'react-toastify';
 
 export default function Home() {
 
@@ -19,12 +20,21 @@ export default function Home() {
   async function handleLogin(event: FormEvent){
     event.preventDefault();
 
+    if(email === '' || password === ''){
+      toast.error("Preencha os dados corretamente")
+      return;
+    }
+
+    setLoading(true);
+
     let data = {
       email,
       password
     }
 
     await signIn(data);
+
+    setLoading(false);
   }
 
   return (
@@ -52,7 +62,7 @@ export default function Home() {
 
           <Button
           type="submit"
-          loading={false}
+          loading={loading}
           >
             Entrar
           </Button>

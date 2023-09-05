@@ -2,12 +2,14 @@ import { createContext, ReactNode, useState } from 'react';
 import {destroyCookie, setCookie, parseCookies} from 'nookies'
 import Router from 'next/router';
 import { api } from '../services/apiClient';
+import { toast } from 'react-toastify';
 
 type AuthContextData = {
     user: UserProps;
     isAuthenticated: boolean;
     signIn: (credentials: SignInProps) => Promise<void>;
     signOut: () => void;
+    signUp: (credentials: SignUpProps) => Promise<void>;
 }
 
 type UserProps = {
@@ -17,6 +19,12 @@ type UserProps = {
 }
 
 type SignInProps = {
+    email: string;
+    password: string;
+}
+
+type SignUpProps = {
+    name: string;
     email: string;
     password: string;
 }
@@ -63,15 +71,36 @@ export function AuthProvider({ children }: AuthProviderProps ){
 
             api.defaults.headers['Authorization'] = `Bearer ${token}`
 
-            Router.push('/biblioteca')
+            toast.success("Sucesso");
+            Router.push('/biblioteca');
 
         } catch (error) {
+            toast.error("Email ou Senha incorreto");
+            console.log('Erro');
+        }
+    }
+
+    async function signUp({name, email, password}: SignUpProps){
+        try {
             
+            const response = await api.post('/users', {
+                name,
+                email,
+                password
+            })
+
+            toast.success("Registrado");
+
+            Router.push('/');
+
+        } catch (error) {
+            toast.error("Erro");
+            console.log('Erro');
         }
     }
 
     return(
-        <AuthContext.Provider value={{ user , isAuthenticated, signIn, signOut }}>
+        <AuthContext.Provider value={{ user , isAuthenticated, signIn, signOut, signUp }}>
             {children}
         </AuthContext.Provider>
     )
