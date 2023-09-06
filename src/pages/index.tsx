@@ -8,6 +8,8 @@ import { Button } from "../components/ui/button";
 import { AuthContext } from "../contexts/AuthContext";
 import Link from "next/link";
 import { toast } from 'react-toastify';
+import { GetServerSideProps } from 'next';
+import { canSSRGuest } from '../utils/canSSRGuest';
 
 export default function Home() {
 
@@ -44,8 +46,11 @@ export default function Home() {
     </Head>
     <div className={styles.containerCenter}>     
       <Image src={logo} alt="Logo Biblioteca"/>
-      
+
       <div className={styles.login}>
+      
+        <h1>Entrar</h1>
+
         <form onSubmit={handleLogin}>
           <Input
             placeholder="Digite seu email"
@@ -79,3 +84,10 @@ export default function Home() {
     </>
   );
 }
+
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  return {
+    props: {}
+  }
+})

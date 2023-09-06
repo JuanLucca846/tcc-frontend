@@ -41,7 +41,7 @@ export default function Register() {
   return (
     <>
     <Head>
-      <title>Cadastro</title>
+      <title>NossaBiblioteca - Cadastro</title>
     </Head>
     <div className={styles.containerCenter}>     
       <Image src={logo} alt="Logo Biblioteca"/>
