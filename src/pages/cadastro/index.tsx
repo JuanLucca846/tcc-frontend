@@ -13,13 +13,14 @@ export default function Register() {
   const { signUp } = useContext(AuthContext);
 
   const [name, setName] = useState('');
+  const [cpf, setCpf] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   async function handleRegister(event: FormEvent){
     event.preventDefault();
-    if(name === '' || email === '' || password === ''){
+    if(name === '' || cpf === '' || email === '' || password === ''){
       toast.error("Preencha os dados corretamente")
       return;
     }
@@ -28,6 +29,7 @@ export default function Register() {
 
     let data = {
       name,
+      cpf,
       email,
       password
     }
@@ -55,6 +57,12 @@ export default function Register() {
             type="text"
             value={name}
             onChange={ (e) => setName(e.target.value)}
+          />
+          <Input
+            placeholder="Digite seu cpf"
+            type="text"
+            value={cpf}
+            onChange={ (e) => setCpf(e.target.value)}
           />
           <Input
             placeholder="Digite seu email"

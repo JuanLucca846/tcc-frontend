@@ -10,11 +10,13 @@ type AuthContextData = {
     signIn: (credentials: SignInProps) => Promise<void>;
     signOut: () => void;
     signUp: (credentials: SignUpProps) => Promise<void>;
+    fetchBooks: () => Promise<BookProps[]>;
 }
 
 type UserProps = {
     id: number;
     name: string;
+    cpf: string;
     email: string;
 }
 
@@ -25,12 +27,22 @@ type SignInProps = {
 
 type SignUpProps = {
     name: string;
+    cpf: string;
     email: string;
     password: string;
 }
 
 type AuthProviderProps = {
     children: ReactNode;
+}
+
+type BookProps = {
+    id: number,
+    title: string,
+    author: string,
+    category: string,
+    cover: string,
+    quantity: number,
 }
 
 export const AuthContext = createContext({} as AuthContextData)
@@ -54,11 +66,12 @@ export function AuthProvider({ children }: AuthProviderProps ){
 
         if(token){
             api.get('/users').then(response => {
-                const { id, name, email} = response.data;
+                const { id, name, cpf, email} = response.data;
 
                 setUser({
                     id,
                     name,
+                    cpf,
                     email
                 })
 
@@ -78,7 +91,7 @@ export function AuthProvider({ children }: AuthProviderProps ){
             })
             
 
-            const { id, name, token } = response.data
+            const { id, name, cpf, token } = response.data
 
             setCookie(undefined, "@nextauth.token", token, {
                 maxAge: 60 * 60 * 24 * 30,
@@ -88,6 +101,7 @@ export function AuthProvider({ children }: AuthProviderProps ){
             setUser({
                 id,
                 name,
+                cpf,
                 email,
             })
 
@@ -102,11 +116,12 @@ export function AuthProvider({ children }: AuthProviderProps ){
         }
     }
 
-    async function signUp({name, email, password}: SignUpProps){
+    async function signUp({name, cpf, email, password}: SignUpProps){
         try {
             
             const response = await api.post('/users', {
                 name,
+                cpf,
                 email,
                 password
             })
@@ -121,8 +136,21 @@ export function AuthProvider({ children }: AuthProviderProps ){
         }
     }
 
+    async function fetchBooks() {
+        try {
+            const response = await api.get('/book');
+
+            const books = response.data;
+            return books;
+        } catch (error) {
+            toast.error("Erro");
+            console.log('Erro');
+        }
+    }
+
+
     return(
-        <AuthContext.Provider value={{ user , isAuthenticated, signIn, signOut, signUp }}>
+        <AuthContext.Provider value={{ user , isAuthenticated, signIn, signOut, signUp, fetchBooks }}>
             {children}
         </AuthContext.Provider>
     )
