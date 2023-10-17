@@ -91,6 +91,43 @@ export default function adminControl() {
     }
   }
 
+  async function handleUpdate(event: FormEvent) {
+    event.preventDefault();
+
+    try {
+      console.log("Updating...");
+
+      if (bookId === "" || title === "" || author === "" || quantity === "") {
+        toast.error("Preencha todos os campos");
+        return;
+      }
+
+      const parseBookId = parseInt(bookId, 10);
+
+      const data = {
+        title,
+        author,
+        category,
+        quantity: parseInt(quantity, 10),
+      };
+
+      const apiClient = setupAPIClient();
+
+      console.log("Sending PUT request...");
+      await apiClient.put(`/book/${parseBookId}`, JSON.stringify(data), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      toast.success("Livro atualizado");
+      console.log("Livro atualizado");
+    } catch (error) {
+      toast.error("Erro");
+      console.log("Erro", error);
+    }
+  }
+
   return (
     <>
       <Head>
@@ -152,14 +189,14 @@ export default function adminControl() {
             {selectedOption === "editar" && (
               <>
                 <h1>Editar livro</h1>
-                <form className={styles.form} onSubmit={handleRegister}>
-                  <input type="text" placeholder="Digite o ID do livro que deseja atualizar" className={styles.input} value={category} onChange={(e) => setCategory(e.target.value)} />
+                <form className={styles.form} onSubmit={handleUpdate}>
+                  <input type="text" placeholder="Digite o ID do livro que deseja atualizar" className={styles.input} value={bookId} onChange={(e) => setBookId(e.target.value)} />
 
-                  <input type="text" placeholder="Digite o nome do livro" className={styles.input} value={title} onChange={(e) => setTitle(e.target.value)} />
+                  <input type="text" placeholder="Digite o novo titulo do livro" className={styles.input} value={title} onChange={(e) => setTitle(e.target.value)} />
 
-                  <input type="text" placeholder="Digite o nome do autor" className={styles.input} value={author} onChange={(e) => setAuthor(e.target.value)} />
+                  <input type="text" placeholder="Digite o novo nome do autor" className={styles.input} value={author} onChange={(e) => setAuthor(e.target.value)} />
 
-                  <input type="number" placeholder="Digite a quantidade de livros" className={styles.input} value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+                  <input type="number" placeholder="Digite a nova quantidade de livros" className={styles.input} value={quantity} onChange={(e) => setQuantity(e.target.value)} />
 
                   <button type="submit" className={styles.buttonUpdate}>
                     Atualizar
