@@ -131,7 +131,7 @@ export default function adminControl() {
   return (
     <>
       <Head>
-        <title>NossaBiblioteca - Adicionar livros</title>
+        <title>NossaBiblioteca - Controle dos livros</title>
       </Head>
       <div>
         <Header />

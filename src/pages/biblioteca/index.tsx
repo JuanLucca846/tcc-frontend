@@ -1,11 +1,13 @@
 import { canSSRAuth } from "../../utils/canSSRAuth";
 import Head from "next/head";
 import { Header } from "../../components/Header";
+import styles from "./styles.module.scss";
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { api } from "../../services/apiClient";
 import { setupAPIClient } from "../../services/api";
 import { toast } from "react-toastify";
+import { FiSearch } from "react-icons/fi";
 
 type BookProps = {
   booksList: Array<{
@@ -20,6 +22,17 @@ type BookProps = {
 
 export default function Library({ booksList }: BookProps) {
   const [books, setBooks] = useState(booksList || []);
+  const [search, setSearch] = useState("");
+  const [filteredBooks, setFilteredBooks] = useState(booksList || []);
+
+  useEffect(() => {
+    if (search) {
+      const filtered = books.filter((book) => book.title.toLowerCase().includes(search.toLowerCase()));
+      setFilteredBooks(filtered);
+    } else {
+      setFilteredBooks(books);
+    }
+  }, [search, books]);
 
   const user = useContext(AuthContext);
 
@@ -59,10 +72,23 @@ export default function Library({ booksList }: BookProps) {
         <Header />
         <h1>Inicio</h1>
         <div>
-          <h2>Livros Disponiveis</h2>
-          <ul>
-            {books.map((book) => (
-              <li key={book.id}>{book.title}</li>
+          <h2 className={styles.availableBooks}>Livros Disponiveis</h2>
+          <input type="text" placeholder="Buscar livros..." value={search} onChange={(e) => setSearch(e.target.value)} className={styles.searchBook} />
+          <FiSearch color="#109152" size={24} />
+          <ul className={styles.bookList}>
+            {filteredBooks.map((book) => (
+              <li key={book.id} className={styles.bookItem}>
+                <img src={`/files/${book.cover}`} alt={book.title} className={styles.bookCover} />
+                <div className={styles.bookDetails}>
+                  <h3>{book.title}</h3>
+                  <p>Autor: {book.author}</p>
+                  <p>Categoria: {book.category}</p>
+                  <p>Quantidade: {book.quantity}</p>
+                  <button type="submit" className={styles.buttonBooking}>
+                    Alugar
+                  </button>
+                </div>
+              </li>
             ))}
           </ul>
         </div>
