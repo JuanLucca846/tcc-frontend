@@ -15,9 +15,13 @@ type BookProps = {
     title: string;
     author: string;
     category: string;
-    cover: string;
     quantity: number;
   }>;
+};
+
+type RentProps = {
+  userId: number;
+  bookId: number;
 };
 
 export default function Library({ booksList }: BookProps) {
@@ -48,20 +52,41 @@ export default function Library({ booksList }: BookProps) {
     }
   }
 
+  async function rentBook({ userId, bookId }: RentProps) {
+    if (user) {
+      try {
+        const response = await api.post("/rentbook", { userId, bookId });
+
+        const updatedBooks = books.map((book) => {
+          if (book.id === bookId) {
+            const updatedQuantity = book.quantity - 1;
+            return { ...book, quantity: updatedQuantity };
+          }
+          return book;
+        });
+
+        setBooks(updatedBooks);
+
+        toast.success("Livro alugado com sucesso");
+      } catch (error) {
+        toast.error("Erro ao alugar o livro");
+        console.error("Erro ao alugar o livro:", error);
+      }
+    }
+  }
+
   useEffect(() => {
-    async function loadBooks() {
+    const loadBooks = async () => {
       try {
         const booksData = await fetchBooks();
         setBooks(booksData || []);
       } catch (error) {
         console.error("Error loading books:", error);
       }
-    }
+    };
 
-    if (user) {
-      loadBooks();
-    }
-  }, [user, fetchBooks]);
+    loadBooks();
+  }, []);
 
   return (
     <>
@@ -70,21 +95,21 @@ export default function Library({ booksList }: BookProps) {
       </Head>
       <div>
         <Header />
-        <h1>Inicio</h1>
-        <div>
-          <h2 className={styles.availableBooks}>Livros Disponiveis</h2>
-          <input type="text" placeholder="Buscar livros..." value={search} onChange={(e) => setSearch(e.target.value)} className={styles.searchBook} />
-          <FiSearch color="#109152" size={24} />
+        <div className={styles.availableBooks}>
+          <h2>Livros Disponiveis</h2>
+          <div className={styles.searchContainer}>
+            <input type="text" placeholder="Buscar livros..." value={search} onChange={(e) => setSearch(e.target.value)} className={styles.searchBook} />
+            <FiSearch color="#109152" size={24} className={styles.fiSearch} />
+          </div>
           <ul className={styles.bookList}>
             {filteredBooks.map((book) => (
               <li key={book.id} className={styles.bookItem}>
-                <img src={`/files/${book.cover}`} alt={book.title} className={styles.bookCover} />
                 <div className={styles.bookDetails}>
-                  <h3>{book.title}</h3>
-                  <p>Autor: {book.author}</p>
-                  <p>Categoria: {book.category}</p>
-                  <p>Quantidade: {book.quantity}</p>
-                  <button type="submit" className={styles.buttonBooking}>
+                  <h3 className={styles.bookTitle}>{book.title}</h3>
+                  <p className={styles.bookAuthor}>Autor: {book.author}</p>
+                  <p className={styles.bookCategory}>Categoria: {book.category}</p>
+                  <p className={styles.bookQuantity}>Quantidade: {book.quantity}</p>
+                  <button type="button" className={styles.buttonBooking} onClick={() => rentBook({ userId: user.user.id || 0, bookId: book.id })}>
                     Alugar
                   </button>
                 </div>

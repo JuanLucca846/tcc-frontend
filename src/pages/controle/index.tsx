@@ -3,7 +3,6 @@ import Head from "next/head";
 import { Header } from "../../components/Header";
 import styles from "./styles.module.scss";
 import { canSSRAuth } from "../../utils/canSSRAuth";
-import { FiUpload } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { setupAPIClient } from "../../services/api";
 
@@ -13,44 +12,25 @@ export default function adminControl() {
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
-  const [imageAvatar, setImageAvatar] = useState(null);
   const [selectedOption, setSelectedOption] = useState("cadastrar");
-
-  function handleFile(e: ChangeEvent<HTMLInputElement>) {
-    if (!e.target.files) {
-      return;
-    }
-
-    const image = e.target.files[0];
-
-    if (!image) {
-      return;
-    }
-
-    if (image.type === "image/jpeg" || image.type === "image/png") {
-      setImageAvatar(image);
-      setAvatarUrl(URL.createObjectURL(e.target.files[0]));
-    }
-  }
 
   async function handleRegister(event: FormEvent) {
     event.preventDefault();
 
     try {
       console.log("Starting registration...");
-      const data = new FormData();
 
-      if (title === "" || author === "" || category === "" || quantity === "" || imageAvatar === null) {
+      if (title === "" || author === "" || category === "" || quantity === "") {
         toast.error("Preencha todos os campos");
         return;
       }
 
-      data.append("title", title);
-      data.append("author", author);
-      data.append("category", category);
-      data.append("quantity", String(parseInt(quantity, 10)));
-      data.append("file", imageAvatar);
+      const data = {
+        title,
+        author,
+        category,
+        quantity: parseInt(quantity, 10),
+      };
 
       const apiClient = setupAPIClient();
 
@@ -62,6 +42,11 @@ export default function adminControl() {
     } catch (error) {
       toast.error("Erro");
       console.log("Erro");
+    } finally {
+      setTitle("");
+      setAuthor("");
+      setCategory("");
+      setQuantity("");
     }
   }
 
@@ -72,7 +57,7 @@ export default function adminControl() {
       console.log("Removing...");
 
       if (bookId === "") {
-        toast.error("Preencha o id para remover");
+        toast.error("Preencha o ID para remover");
         return;
       }
 
@@ -88,6 +73,8 @@ export default function adminControl() {
     } catch (error) {
       toast.error("Erro");
       console.log("Erro");
+    } finally {
+      setBookId("");
     }
   }
 
@@ -114,17 +101,18 @@ export default function adminControl() {
       const apiClient = setupAPIClient();
 
       console.log("Sending PUT request...");
-      await apiClient.put(`/book/${parseBookId}`, JSON.stringify(data), {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      await apiClient.put(`/book/${parseBookId}`, data);
 
       toast.success("Livro atualizado");
       console.log("Livro atualizado");
     } catch (error) {
       toast.error("Erro");
       console.log("Erro", error);
+    } finally {
+      setBookId("");
+      setTitle("");
+      setAuthor("");
+      setQuantity("");
     }
   }
 
@@ -152,14 +140,6 @@ export default function adminControl() {
               <>
                 <h1>Cadastrar livro</h1>
                 <form className={styles.form} onSubmit={handleRegister}>
-                  <label className={styles.labelAvatar}>
-                    <span>
-                      <FiUpload size={25} color="#109152" />
-                    </span>
-                    <input type="file" accept="image/png, image/jpeg" onChange={handleFile} />
-                    {avatarUrl && <img className={styles.preview} src={avatarUrl} alt="Foto do produto" width={250} height={250} />}
-                  </label>
-
                   <input type="text" placeholder="Digite o nome do livro" className={styles.input} value={title} onChange={(e) => setTitle(e.target.value)} />
 
                   <input type="text" placeholder="Digite o nome do autor" className={styles.input} value={author} onChange={(e) => setAuthor(e.target.value)} />

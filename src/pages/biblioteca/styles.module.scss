@@ -11,6 +11,11 @@
     border: 1px solid var(--green-800);
     height: 40px;
     padding: 0 0.5rem;
+    flex: 1;
+
+    &:focus {
+        border: 1px solid var(--black);
+      }
 }
 
 .bookItem{
@@ -19,12 +24,12 @@
     border: 1px solid #ccc;
     padding: 10px;
     background-color: #f9f9f9;
-}
+    border-radius: 0.3rem;
+    transition: background-color 0.2s;
 
-.bookCover{
-    width: 100px;
-    height: 150px;
-    margin-right: 10px;
+    &:hover{
+        background-color: #e0e0e0;
+    }
 }
 
 .bookDetails{
@@ -33,6 +38,19 @@
 
 .availableBooks{
     color: var(--green-800);
+    text-align: center;
+}
+
+.searchContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 300px;
+}
+
+.fiSearch{
+    margin-left: 5px;
 }
 
 .buttonBooking{
@@ -43,4 +61,14 @@
     font-size: 1.2rem;
     font-weight: bold;
     color: var(--white);
+    cursor: pointer; 
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: var(--green-900);
+    }
+}
+
+.bookTitle, .bookAuthor, .bookCategory, .bookQuantity{
+    color: var(--black);
 }

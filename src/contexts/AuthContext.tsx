@@ -5,7 +5,7 @@ import { api } from "../services/apiClient";
 import { toast } from "react-toastify";
 
 type AuthContextData = {
-  user: UserProps;
+  user: UserProps | null;
   isAuthenticated: boolean;
   signIn: (credentials: SignInProps) => Promise<void>;
   signOut: () => void;
