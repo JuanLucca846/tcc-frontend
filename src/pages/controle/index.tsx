@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, FormEvent } from "react";
+import React, { useState, FormEvent } from "react";
 import Head from "next/head";
 import { Header } from "../../components/Header";
 import styles from "./styles.module.scss";
@@ -6,7 +6,7 @@ import { canSSRAuth } from "../../utils/canSSRAuth";
 import { toast } from "react-toastify";
 import { setupAPIClient } from "../../services/api";
 
-export default function adminControl() {
+export default function AdminControl() {
   const [bookId, setBookId] = useState("");
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
