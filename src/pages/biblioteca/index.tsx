@@ -1,3 +1,4 @@
+// pages/Library.tsx
 import { canSSRAuth } from "../../utils/canSSRAuth";
 import Head from "next/head";
 import { Header } from "../../components/Header";
@@ -8,6 +9,8 @@ import { api } from "../../services/apiClient";
 import { setupAPIClient } from "../../services/api";
 import { toast } from "react-toastify";
 import { FiSearch } from "react-icons/fi";
+import React from "react";
+import BookModal from "../../components/Modal";
 
 type BookProps = {
   booksList: {
@@ -19,6 +22,8 @@ type BookProps = {
       author: string;
       category: string;
       quantity: number;
+      coverImage: string;
+      description: string;
     }>;
   };
 };
@@ -33,7 +38,9 @@ export default function Library({ booksList }: BookProps) {
   const [search, setSearch] = useState("");
   const [filteredBooks, setFilteredBooks] = useState<BookProps["booksList"]["books"]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [itemsPerPage, setItemsPerPage] = useState(16);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedBook, setSelectedBook] = useState<{ title: string; description: string } | null>(null);
 
   useEffect(() => {
     if (search) {
@@ -93,6 +100,20 @@ export default function Library({ booksList }: BookProps) {
     }
   }
 
+  async function deleteBook(bookId: number) {
+    try {
+      await api.delete(`/book/${bookId}`);
+
+      const updatedBooks = books.filter((book) => book.id !== bookId);
+      setBooks(updatedBooks);
+
+      toast.success("Livro excluído com sucesso");
+    } catch (error) {
+      toast.error("Erro ao excluir o livro");
+      console.error("Erro ao excluir o livro:", error);
+    }
+  }
+
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
@@ -130,14 +151,25 @@ export default function Library({ booksList }: BookProps) {
           </div>
           <ul className={styles.bookList}>
             {filteredBooks.map((book) => (
-              <li key={book.id} className={styles.bookItem}>
+              <li
+                key={book.id}
+                className={styles.bookItem}
+                onClick={() => {
+                  setIsModalOpen(true);
+                  setSelectedBook(book);
+                }}
+              >
                 <div className={styles.bookDetails}>
+                  <img src={`http://localhost:3000/tmp/${book.coverImage}`} alt={book.title} className={styles.bookCoverImage} />
                   <h3 className={styles.bookTitle}>{book.title}</h3>
                   <p className={styles.bookAuthor}>Autor: {book.author}</p>
                   <p className={styles.bookCategory}>Categoria: {book.category}</p>
                   <p className={styles.bookQuantity}>Quantidade: {book.quantity}</p>
                   <button type="button" className={styles.buttonBooking} onClick={() => rentBook({ userId: user.user?.id || 0, bookId: book.id })}>
                     Alugar
+                  </button>
+                  <button type="button" className={styles.buttonDelete} onClick={() => deleteBook(book.id)}>
+                    Excluir
                   </button>
                 </div>
               </li>
@@ -153,10 +185,19 @@ export default function Library({ booksList }: BookProps) {
           Próxima
         </button>
         <select className={styles.selectionPagination} onChange={(e) => changeItemsPerPage(Number(e.target.value))} value={itemsPerPage}>
-          <option value={5}>5 por página</option>
-          <option value={10}>10 por página</option>
+          <option value={16}>16 por página</option>
+          <option value={32}>32 por página</option>
         </select>
       </div>
+      {isModalOpen && (
+        <BookModal
+          onClose={() => {
+            setIsModalOpen(false);
+            setSelectedBook(null);
+          }}
+          book={selectedBook}
+        />
+      )}
     </>
   );
 }

@@ -1,4 +1,6 @@
 .bookList{
+    display: flex;
+    flex-wrap: wrap;
     list-style: none;
     padding: 0;
 }
@@ -19,17 +21,9 @@
 }
 
 .bookItem{
-    display: flex;
+    width: 200px;
     margin: 10px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 0.3rem;
-    transition: background-color 0.2s;
-
-    &:hover{
-        background-color: #e0e0e0;
-    }
+    border: 1px solid var(--black);
 }
 
 .bookDetails{
@@ -38,7 +32,7 @@
 
 .availableBooks{
     color: var(--green-800);
-    text-align: center;
+    text-align: center;  
 }
 
 .searchContainer{
@@ -54,10 +48,16 @@
 }
 
 .paginationContainer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    padding: 10px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center; 
-    margin-top: 20px; 
+    box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);
   }
 
 .buttonBooking{
@@ -76,6 +76,23 @@
     }
 }
 
+.buttonDelete {
+    border-radius: 0.3rem;
+    height: 40px;
+    border: 5px;
+    background-color: #ff4d4f;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--white);
+    cursor: pointer; 
+    transition: background-color 0.2s;
+    margin-left: 8px;
+  
+    &:hover {
+      background-color: #d63031;
+    }
+  }
+
 .buttonPrevious, .buttonNext{
     border-radius: 0.3rem;
     height: 40px;
@@ -92,6 +109,8 @@
       background-color: var(--green-900);
     }
 }
+
+
 
 .selectionPagination{
     border-radius: 0.3rem;

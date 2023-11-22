@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 type AuthContextData = {
   user: UserProps | null;
   isAuthenticated: boolean;
+  isAdmin: boolean;
   signIn: (credentials: SignInProps) => Promise<void>;
   signOut: () => void;
   signUp: (credentials: SignUpProps) => Promise<void>;
@@ -17,6 +18,7 @@ type UserProps = {
   name: string;
   cpf: string;
   email: string;
+  admin: boolean;
 };
 
 type SignInProps = {
@@ -49,6 +51,7 @@ export function signOut() {
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserProps>();
   const isAuthenticated = !!user;
+  const isAdmin = user?.admin || false;
 
   useEffect(() => {
     const { "@nextauth.token": token } = parseCookies();
@@ -57,13 +60,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
       api
         .get("/users")
         .then((response) => {
-          const { id, name, cpf, email } = response.data;
+          const { id, name, cpf, email, admin } = response.data;
 
           setUser({
             id,
             name,
             cpf,
             email,
+            admin,
           });
         })
         .catch(() => {
@@ -79,7 +83,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         password,
       });
 
-      const { id, name, cpf, token } = response.data;
+      const { id, name, cpf, token, admin } = response.data;
 
       setCookie(undefined, "@nextauth.token", token, {
         maxAge: 60 * 60 * 24 * 30,
@@ -91,6 +95,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         name,
         cpf,
         email,
+        admin,
       });
 
       api.defaults.headers["Authorization"] = `Bearer ${token}`;
@@ -121,5 +126,5 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  return <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut, signUp }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, isAuthenticated, isAdmin, signIn, signOut, signUp }}>{children}</AuthContext.Provider>;
 }

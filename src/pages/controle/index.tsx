@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, ChangeEvent } from "react";
 import Head from "next/head";
 import { Header } from "../../components/Header";
 import styles from "./styles.module.scss";
@@ -6,86 +6,106 @@ import { canSSRAuth } from "../../utils/canSSRAuth";
 import { toast } from "react-toastify";
 import { setupAPIClient } from "../../services/api";
 
-export default function AdminControl() {
+interface AdminControlProps {}
+
+const AdminControl: React.FC<AdminControlProps> = ({}) => {
   const [bookId, setBookId] = useState("");
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [description, setDescription] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
+  const [imageAvatar, setImageAvatar] = useState(null);
   const [selectedOption, setSelectedOption] = useState("cadastrar");
 
-  async function handleRegister(event: FormEvent) {
+  const apiClient = setupAPIClient();
+
+  const showToastError = (message: string) => {
+    toast.error(`Erro: ${message}`);
+  };
+
+  function handleFile(e: ChangeEvent<HTMLInputElement>) {
+    if (!e.target.files) {
+      return;
+    }
+
+    const image = e.target.files[0];
+
+    if (!image) {
+      return;
+    }
+
+    if (image.type === "image/jpeg" || image.type === "image/png") {
+      setImageAvatar(image);
+      setAvatarUrl(URL.createObjectURL(e.target.files[0]));
+    }
+  }
+
+  const handleRegister = async (event: FormEvent) => {
     event.preventDefault();
 
     try {
-      console.log("Starting registration...");
-
-      if (title === "" || author === "" || category === "" || quantity === "") {
-        toast.error("Preencha todos os campos");
+      if (title === "" || author === "" || category === "" || quantity === "" || imageAvatar === null || description === "") {
+        showToastError("Preencha todos os campos");
         return;
       }
 
-      const data = {
-        title,
-        author,
-        category,
-        quantity: parseInt(quantity, 10),
-      };
+      const data = new FormData();
+      data.append("title", title);
+      data.append("author", author);
+      data.append("category", category);
+      data.append("quantity", quantity);
+      data.append("description", description);
+      data.append("file", imageAvatar);
 
-      const apiClient = setupAPIClient();
+      const response = await apiClient.post("/book", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-      console.log("Sending POST request...");
-      await apiClient.post("/book", data);
-
+      console.log("Response:", response.data);
       toast.success("Livro cadastrado");
-      console.log("Livro cadastrado");
     } catch (error) {
-      toast.error("Erro");
-      console.log("Erro");
+      showToastError("Erro ao cadastrar o livro");
+      console.error("Erro ao cadastrar o livro", error);
     } finally {
       setTitle("");
       setAuthor("");
       setCategory("");
       setQuantity("");
+      setDescription("");
     }
-  }
+  };
 
-  async function handleRemove(event: FormEvent) {
+  const handleRemove = async (event: FormEvent) => {
     event.preventDefault();
 
     try {
-      console.log("Removing...");
-
-      if (bookId === "") {
-        toast.error("Preencha o ID para remover");
+      if (!bookId) {
+        showToastError("Preencha o ID para remover");
         return;
       }
 
       const parseBookId = parseInt(bookId, 10);
 
-      const apiClient = setupAPIClient();
-
-      console.log("Sending DELETE request...");
       await apiClient.delete(`/book/${parseBookId}`);
 
       toast.success("Livro removido");
-      console.log("Livro removido");
     } catch (error) {
-      toast.error("Erro");
-      console.log("Erro");
+      showToastError("Erro ao remover o livro");
     } finally {
       setBookId("");
     }
-  }
+  };
 
-  async function handleUpdate(event: FormEvent) {
+  const handleUpdate = async (event: FormEvent) => {
     event.preventDefault();
 
     try {
-      console.log("Updating...");
-
-      if (bookId === "" || title === "" || author === "" || quantity === "") {
-        toast.error("Preencha todos os campos");
+      if (!bookId || !title || !author || !quantity) {
+        showToastError("Preencha todos os campos");
         return;
       }
 
@@ -98,23 +118,18 @@ export default function AdminControl() {
         quantity: parseInt(quantity, 10),
       };
 
-      const apiClient = setupAPIClient();
-
-      console.log("Sending PUT request...");
       await apiClient.put(`/book/${parseBookId}`, data);
 
       toast.success("Livro atualizado");
-      console.log("Livro atualizado");
     } catch (error) {
-      toast.error("Erro");
-      console.log("Erro", error);
+      showToastError("Erro ao atualizar o livro");
     } finally {
       setBookId("");
       setTitle("");
       setAuthor("");
       setQuantity("");
     }
-  }
+  };
 
   return (
     <>
@@ -139,12 +154,19 @@ export default function AdminControl() {
             {selectedOption === "cadastrar" && (
               <>
                 <h1>Cadastrar livro</h1>
+                <label htmlFor="coverImage" className={styles.coverImageLabel}>
+                  Selecione a imagem de capa do livro:
+                </label>
                 <form className={styles.form} onSubmit={handleRegister}>
+                  <input type="file" accept="image/png, image/jpeg" className={styles.fileInput} onChange={handleFile} />
+
                   <input type="text" placeholder="Digite o nome do livro" className={styles.input} value={title} onChange={(e) => setTitle(e.target.value)} />
 
                   <input type="text" placeholder="Digite o nome do autor" className={styles.input} value={author} onChange={(e) => setAuthor(e.target.value)} />
 
                   <input type="text" placeholder="Digite o nome da categoria" className={styles.input} value={category} onChange={(e) => setCategory(e.target.value)} />
+
+                  <textarea placeholder="Digite a descrição do livro" className={styles.input} value={description} onChange={(e) => setDescription(e.target.value)} />
 
                   <input type="number" placeholder="Digite a quantidade de livros" className={styles.input} value={quantity} onChange={(e) => setQuantity(e.target.value)} />
 
@@ -172,7 +194,7 @@ export default function AdminControl() {
                 <form className={styles.form} onSubmit={handleUpdate}>
                   <input type="text" placeholder="Digite o ID do livro que deseja atualizar" className={styles.input} value={bookId} onChange={(e) => setBookId(e.target.value)} />
 
-                  <input type="text" placeholder="Digite o novo titulo do livro" className={styles.input} value={title} onChange={(e) => setTitle(e.target.value)} />
+                  <input type="text" placeholder="Digite o novo título do livro" className={styles.input} value={title} onChange={(e) => setTitle(e.target.value)} />
 
                   <input type="text" placeholder="Digite o novo nome do autor" className={styles.input} value={author} onChange={(e) => setAuthor(e.target.value)} />
 
@@ -189,10 +211,12 @@ export default function AdminControl() {
       </div>
     </>
   );
-}
+};
 
 export const getServerSideProps = canSSRAuth(async (ctx) => {
   return {
     props: {},
   };
 });
+
+export default AdminControl;

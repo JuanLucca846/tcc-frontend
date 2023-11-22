@@ -5,9 +5,9 @@ import { signOut } from "../contexts/AuthContext";
 
 export function setupAPIClient(ctx = undefined) {
   let cookies = parseCookies(ctx);
-
+  //baseURL: "https://tcc-backend-joct.onrender.com",
   const api = axios.create({
-    baseURL: "https://tcc-backend-joct.onrender.com",
+    baseURL: "http://localhost:3000",
     headers: {
       Authorization: `Bearer ${cookies["@nextauth.token"]}`,
     },
