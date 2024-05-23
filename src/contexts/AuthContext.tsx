@@ -28,9 +28,9 @@ type SignInProps = {
 
 type SignUpProps = {
   name: string;
-  cpf: string;
   email: string;
   password: string;
+  courseId: number;
 };
 
 type AuthProviderProps = {
@@ -101,20 +101,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
       api.defaults.headers["Authorization"] = `Bearer ${token}`;
 
       toast.success("Sucesso");
-      Router.push("/biblioteca");
+      Router.push("/inicio");
     } catch (error) {
       toast.error("Email ou Senha incorreto");
       console.log("Erro");
     }
   }
 
-  async function signUp({ name, cpf, email, password }: SignUpProps) {
+  async function signUp({ name, email, password, courseId }: SignUpProps) {
     try {
       const response = await api.post("/users", {
         name,
-        cpf,
         email,
         password,
+        courseId,
       });
 
       toast.success("Registrado");

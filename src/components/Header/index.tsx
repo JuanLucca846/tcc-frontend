@@ -10,7 +10,7 @@ export function Header() {
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
-        <Link href={"/biblioteca"}>
+        <Link href={"/inicio"}>
           <img src="/logonossabiblioteca.svg" width={190} height={80} />
         </Link>
 
@@ -18,6 +18,8 @@ export function Header() {
           <Link href="/livros">Meus livros</Link>
 
           <Link href="/controle">Controle</Link>
+
+          <Link href="/dashboard">Dashboard</Link>
 
           <button onClick={signOut}>
             <FiLogOut color="#109152" size={24} />

@@ -1,0 +1,34 @@
+// styles.module.scss
+.sidebar {
+  background-color: var(--green-800);
+  color: var(--green-100);
+  width: 200px;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar nav ul li {
+  border-bottom: 1px solid black;
+  padding: 1rem;
+}
+
+.sidebar nav ul li:last-child {
+  border-bottom: none;
+}
+
+.sidebar nav ul li a {
+  color: var(--green-100);
+  text-decoration: none;
+  display: block;
+  transition: color 0.7s;
+}
+
+.sidebar nav ul li a:hover {
+  color: var(--green-200);
+}

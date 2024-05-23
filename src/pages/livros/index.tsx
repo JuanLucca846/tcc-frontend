@@ -95,6 +95,10 @@ export default function MyBooks({ rentedBooksList }: RentedBookProps) {
             ))}
           </ul>
         </div>
+        <h2>Sugestão de livros</h2>
+        <div className={styles.searchContainer}>
+          <input type="text" placeholder="Sugerir livro" className={styles.searchBook} />
+        </div>
       </div>
     </>
   );

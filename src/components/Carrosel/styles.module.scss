@@ -1,0 +1,21 @@
+.carrosselContainer {
+  display: flex;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.bookCard {
+  flex: 0 0 auto;
+  margin-right: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #fff;
+}
+
+.bookCoverImage {
+  width: 100px;
+  height: auto;
+  display: block;
+  margin-bottom: 1rem;
+}

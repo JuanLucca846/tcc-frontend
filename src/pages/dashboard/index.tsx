@@ -1,4 +1,3 @@
-// pages/Library.tsx
 import { canSSRAuth } from "../../utils/canSSRAuth";
 import Head from "next/head";
 import { Header } from "../../components/Header";
@@ -160,7 +159,7 @@ export default function Library({ booksList }: BookProps) {
                 }}
               >
                 <div className={styles.bookDetails}>
-                  <img src={`http://localhost:3000/tmp/${book.coverImage}`} alt={book.title} className={styles.bookCoverImage} />
+                  <img src={`http://localhost:3000${book.coverImage}`} alt={book.title} className={styles.bookCoverImage} />
                   <h3 className={styles.bookTitle}>{book.title}</h3>
                   <p className={styles.bookAuthor}>Autor: {book.author}</p>
                   <p className={styles.bookCategory}>Categoria: {book.category}</p>
