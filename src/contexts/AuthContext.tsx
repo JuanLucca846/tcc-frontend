@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 type AuthContextData = {
   user: UserProps | null;
+  setUser: React.Dispatch<React.SetStateAction<UserProps | null>>;
   isAuthenticated: boolean;
   isAdmin: boolean;
   signIn: (credentials: SignInProps) => Promise<void>;
@@ -16,9 +17,9 @@ type AuthContextData = {
 type UserProps = {
   id: number;
   name: string;
-  cpf: string;
   email: string;
   admin: boolean;
+  token: string;
 };
 
 type SignInProps = {
@@ -39,17 +40,8 @@ type AuthProviderProps = {
 
 export const AuthContext = createContext({} as AuthContextData);
 
-export function signOut() {
-  try {
-    destroyCookie(undefined, "@nextauth.token");
-    Router.push("/");
-  } catch (error) {
-    console.log("Erro");
-  }
-}
-
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<UserProps>();
+  const [user, setUser] = useState<UserProps | null>(null);
   const isAuthenticated = !!user;
   const isAdmin = user?.admin || false;
 
@@ -60,15 +52,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       api
         .get("/users")
         .then((response) => {
-          const { id, name, cpf, email, admin } = response.data;
-
-          setUser({
-            id,
-            name,
-            cpf,
-            email,
-            admin,
-          });
+          const { id, name, email, admin } = response.data;
+          setUser({ id, name, email, admin, token });
         })
         .catch(() => {
           signOut();
@@ -83,28 +68,31 @@ export function AuthProvider({ children }: AuthProviderProps) {
         password,
       });
 
-      const { id, name, cpf, token, admin } = response.data;
+      const { id, name, token } = response.data;
 
       setCookie(undefined, "@nextauth.token", token, {
-        maxAge: 60 * 60 * 24 * 30,
+        maxAge: 60 * 60 * 24 * 30, // 30 dias
         path: "/",
       });
+
+      api.defaults.headers["Authorization"] = `Bearer ${token}`;
+
+      const userDetailsResponse = await api.get("/users");
+      const { admin, email: userEmail } = userDetailsResponse.data;
 
       setUser({
         id,
         name,
-        cpf,
-        email,
+        email: userEmail,
         admin,
+        token,
       });
-
-      api.defaults.headers["Authorization"] = `Bearer ${token}`;
 
       toast.success("Sucesso");
       Router.push("/inicio");
     } catch (error) {
       toast.error("Email ou Senha incorreto");
-      console.log("Erro");
+      console.log("Erro", error);
     }
   }
 
@@ -122,9 +110,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
       Router.push("/");
     } catch (error) {
       toast.error("Erro");
-      console.log("Erro");
+      console.log("Erro", error);
     }
   }
 
-  return <AuthContext.Provider value={{ user, isAuthenticated, isAdmin, signIn, signOut, signUp }}>{children}</AuthContext.Provider>;
+  function signOut() {
+    try {
+      destroyCookie(undefined, "@nextauth.token");
+      setUser(null); // Reset user state
+      Router.push("/");
+    } catch (error) {
+      console.log("Erro", error);
+    }
+  }
+
+  return <AuthContext.Provider value={{ user, setUser, isAuthenticated, isAdmin, signIn, signOut, signUp }}>{children}</AuthContext.Provider>;
 }

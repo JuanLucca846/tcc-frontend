@@ -8,6 +8,64 @@ import { api } from "../../services/apiClient";
 import { AdminHeader } from "../../components/AdminHeader/indext";
 import { FaBookOpenReader, FaClockRotateLeft, FaRegUser, FaRightLong } from "react-icons/fa6";
 import { AuthContext } from "../../contexts/AuthContext";
+import { UserHeader } from "../../components/UserHeader";
+
+function AdminPage({ totalBooks, totalPendingBooks, totalUsers, totalBorrowedBooks }) {
+  return (
+    <>
+      <Head>
+        <title>NossaBiblioteca - Início</title>
+      </Head>
+      <div>
+        <AdminHeader />
+        <div className={styles.container}>
+          <Sidebar />
+          <div className={styles.content}>
+            <h1 className={styles.title}>Sistema NossaBiblioteca</h1>
+            <div className={styles.stats}>
+              <div className={styles.teste}>
+                <div className={styles.stat}>
+                  <FaBookOpenReader size={26} />
+                  <h2>Livros Cadastrados</h2>
+                  <span>Total: {totalBooks}</span>
+                </div>
+                <div className={styles.stat}>
+                  <FaClockRotateLeft size={26} />
+                  <h2>Livros Pendentes</h2>
+                  <span>Total: {totalPendingBooks}</span>
+                </div>
+              </div>
+              <div className={styles.teste}>
+                <div className={styles.stat}>
+                  <FaRegUser size={26} />
+                  <h2>Usuários Cadastrados</h2>
+                  <span>Total: {totalUsers}</span>
+                </div>
+                <div className={styles.stat}>
+                  <FaRightLong size={26} />
+                  <h2>Livros Emprestados</h2>
+                  <span>Total: {totalBorrowedBooks}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function UserPage() {
+  return (
+    <>
+      <Head>
+        <title>NossaBiblioteca - Início</title>
+      </Head>
+      <UserHeader />
+      <div></div>
+    </>
+  );
+}
 
 export default function Index() {
   const [totalBooks, setTotalBooks] = useState(0);
@@ -37,53 +95,7 @@ export default function Index() {
     return <p>Carregando...</p>;
   }
 
-  let adminPage;
+  console.log("User", user);
 
-  if (user.admin === true) {
-    adminPage = (
-      <>
-        <Head>
-          <title>NossaBiblioteca - Início</title>
-        </Head>
-        <div>
-          <AdminHeader />
-
-          <div className={styles.container}>
-            <Sidebar />
-            <div className={styles.content}>
-              <h1 className={styles.title}> Sistema NossaBiblioteca</h1>
-              <div className={styles.stats}>
-                <div className={styles.teste}>
-                  <div className={styles.stat}>
-                    <FaBookOpenReader size={26} />
-                    <h2>Livros Cadastrados</h2>
-                    <span>Total: {totalBooks}</span>
-                  </div>
-                  <div className={styles.stat}>
-                    <FaClockRotateLeft size={26} />
-                    <h2>Livros Pendentes</h2>
-                    <span>Total: {totalPendingBooks}</span>
-                  </div>
-                </div>
-                <div className={styles.teste}>
-                  <div className={styles.stat}>
-                    <FaRegUser size={26} />
-                    <h2>Usuários Cadastrados</h2>
-                    <span>Total: {totalUsers}</span>
-                  </div>
-                  <div className={styles.stat}>
-                    <FaRightLong size={26} />
-                    <h2>Livros Emprestados</h2>
-                    <span>Total: {totalBorrowedBooks}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  }
-
-  return <>{adminPage}</>;
+  return user.admin ? <AdminPage totalBooks={totalBooks} totalPendingBooks={totalPendingBooks} totalUsers={totalUsers} totalBorrowedBooks={totalBorrowedBooks} /> : <UserPage />;
 }

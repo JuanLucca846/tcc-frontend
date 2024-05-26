@@ -1,0 +1,21 @@
+.pageContainer {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.pageTitle {
+  margin-top: 1rem;
+}
+
+.detailsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.userDetails {
+  border: 1px solid black;
+}
+
+.bookDetails {
+  border: 1px solid black;
+}
