@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { api } from "../../services/apiClient";
 import { UserHeader } from "../../components/UserHeader";
 import selectCourseStyle from '../cadastro/styles.module.scss'
+import Footer from "../../components/Footer";
 
 export default function Register() {
   const { signUp } = useContext(AuthContext);
@@ -100,6 +101,7 @@ export default function Register() {
           </Link>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }

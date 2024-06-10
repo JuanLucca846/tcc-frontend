@@ -117,7 +117,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   function signOut() {
     try {
       destroyCookie(undefined, "@nextauth.token");
-      setUser(null); // Reset user state
+      setUser(null); 
       Router.push("/");
     } catch (error) {
       console.log("Erro", error);

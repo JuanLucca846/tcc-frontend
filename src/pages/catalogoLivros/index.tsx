@@ -6,6 +6,7 @@ import { api } from "../../services/apiClient";
 import { toast } from "react-toastify";
 import styles from "./styles.module.scss";
 import { AuthContext } from "../../contexts/AuthContext";
+import Footer from "../../components/Footer";
 
 type BookProps = {
   books: Array<{
@@ -162,6 +163,9 @@ export default function IndexUser({ books }: BookProps) {
             </button>
           </div>
         </div>
+      </div>
+      <div className={styles.footer}>
+      <Footer/>
       </div>
     </>
   );

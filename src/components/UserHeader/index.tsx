@@ -45,14 +45,14 @@ export function UserHeader() {
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
-        <Link href={"/usuario"}>
+        <Link href={"/nossaBiblioteca"}>
           <div className={styles.headerTitle}>
             <img src="/logonossabiblioteca.svg" width={190} height={80} alt="Logo" />
             <h1>NossaBiblioteca</h1>
           </div>
         </Link>
         <nav className={styles.menuNav}>
-          <Link href={"/usuario"}>
+          <Link href={"/catalogoLivros"}>
           <span>Ver Catalogo</span>
           </Link>
           {user ? (
