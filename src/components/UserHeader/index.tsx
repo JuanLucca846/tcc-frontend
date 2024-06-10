@@ -39,7 +39,7 @@ export function UserHeader() {
 
   const handleSignOut = async () => {
     await signOut();
-    setUser(null); // Ensure the user state is reset
+    setUser(null); 
   };
 
   return (
@@ -52,13 +52,9 @@ export function UserHeader() {
           </div>
         </Link>
         <nav className={styles.menuNav}>
-          <Link href={"/catalogo"}>
-            <span>Ver Catálogo</span>
+          <Link href={"/usuario"}>
+          <span>Ver Catalogo</span>
           </Link>
-          <form onSubmit={handleSearchSubmit} className={styles.searchForm}>
-            <input type="text" placeholder="Buscar..." value={searchQuery} onChange={handleSearchChange} />
-            <button type="submit">Buscar</button>
-          </form>
           {user ? (
             <>
               <Link href={"/minhaConta"}>

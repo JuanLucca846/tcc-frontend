@@ -24,12 +24,20 @@ export function Sidebar() {
             </Link>
           </li>
           <li>
-            <Link href="/pesquisar-livros">
+            <Link href="/cadastrarCategorias">
+              Cadastrar Categoria <IoIosAddCircle />
+            </Link>
+          </li>
+          <li>
+            <Link href="/pesquisarLivros">
               Pesquisar Livros <FaSearch />
             </Link>
           </li>
           <li>
-            <Link href="/controle-de-livros">Controle de Livros</Link>
+            <Link href="/controleReservas">Controle de Reservas</Link>
+          </li>
+          <li>
+            <Link href="/controleEmprestimo">Controle de Emprestimos</Link>
           </li>
           <li>
             <Link href="/livros-pendentes">Livros Pendentes</Link>

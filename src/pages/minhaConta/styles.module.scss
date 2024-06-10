@@ -1,21 +1,70 @@
 .pageContainer {
-  padding-left: 20%;
-  padding-right: 20%;
+  padding: 0 20%;
+  margin-top: 2rem;
 }
 
 .pageTitle {
-  margin-top: 1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
 }
 
 .detailsContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
 }
 
-.userDetails {
-  border: 1px solid black;
-}
-
+.userDetails,
 .bookDetails {
-  border: 1px solid black;
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.userDetails h2,
+.bookDetails h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.userDetails p,
+.bookDetails p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.logoutButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.bookCard {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  border: 1px solid #eee;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bookCoverImage {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.bookInfo h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.bookInfo p {
+  margin: 0.2rem 0;
 }

@@ -9,6 +9,8 @@ import Link from "next/link";
 import { AuthContext } from "../../contexts/AuthContext";
 import { toast } from "react-toastify";
 import { api } from "../../services/apiClient";
+import { UserHeader } from "../../components/UserHeader";
+import selectCourseStyle from '../cadastro/styles.module.scss'
 
 export default function Register() {
   const { signUp } = useContext(AuthContext);
@@ -69,6 +71,7 @@ export default function Register() {
       <Head>
         <title>NossaBiblioteca - Cadastro</title>
       </Head>
+      <UserHeader/>
       <div className={styles.containerCenter}>
         <Image src={logo} alt="Logo Biblioteca" />
 
@@ -79,7 +82,7 @@ export default function Register() {
             <Input placeholder="Digite seu nome" type="text" value={name} onChange={(e) => setName(e.target.value)} />
             <Input placeholder="Digite seu email" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
             <Input placeholder="Digite sua senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <select value={selectedCourse} onChange={(e) => setSelectedCourse(e.target.value)}>
+            <select className={selectCourseStyle.selectCourse} value={selectedCourse} onChange={(e) => setSelectedCourse(e.target.value)}>
               <option value="">Selecione um curso</option>
               {courses.map((course) => (
                 <option key={course.id} value={course.id}>

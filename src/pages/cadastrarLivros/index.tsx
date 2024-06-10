@@ -1,6 +1,5 @@
 import { canSSRAuth } from "../../utils/canSSRAuth";
 import Head from "next/head";
-import { Header } from "../../components/Header";
 import React, { useState, useEffect } from "react";
 import { Sidebar } from "../../components/SideBar";
 import styles from "./styles.module.scss";
@@ -15,18 +14,17 @@ export default function RegisterBook() {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
-  const [coverImage, setCoverImage] = useState("");
+  const [coverImage, setCoverImage] = useState(null);
   const [categories, setCategories] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     async function fetchCategories() {
       try {
         const response = await api.get("/category");
-        const name = response.data;
-        setCategories(name);
+        setCategories(response.data);
       } catch (error) {
-        console.error("Erro ao buscar os categorias:", error);
+        console.error("Erro ao buscar as categorias:", error);
       }
     }
 
@@ -41,6 +39,27 @@ export default function RegisterBook() {
   const handleRegister = async (e) => {
     e.preventDefault();
 
+    console.log({
+      title,
+      author,
+      description,
+      isbn,
+      shelf,
+      bookcase,
+      coverImage,
+      selectedCategory
+    });
+
+    if (!coverImage) {
+      toast.error("Por favor, selecione uma imagem de capa.");
+      return;
+    }
+
+    if (!selectedCategory) {
+      toast.error("Por favor, selecione uma categoria.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("author", author);
@@ -48,15 +67,16 @@ export default function RegisterBook() {
     formData.append("isbn", isbn);
     formData.append("shelf", shelf);
     formData.append("bookcase", bookcase);
-    formData.append("coverImage", coverImage);
-    selectedCategories.map((categoryId) => {
-      formData.append("categories", categoryId);
-    });
+    formData.append("file", coverImage);
+    formData.append("categoryId", selectedCategory);
 
     try {
-      const response = await api.post("/book", formData);
+      const response = await api.post("/book", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-      console.log("Livro cadastrado:", response.data);
       toast.success("Livro cadastrado com sucesso!");
       setIsbn("");
       setShelf("");
@@ -64,10 +84,9 @@ export default function RegisterBook() {
       setTitle("");
       setAuthor("");
       setDescription("");
-      setCoverImage("");
-      setSelectedCategories("");
+      setCoverImage(null);
+      setSelectedCategory("");
     } catch (error) {
-      console.error("Erro ao cadastrar o livro:", error);
       toast.error("Erro ao cadastrar o livro");
     }
   };
@@ -87,7 +106,7 @@ export default function RegisterBook() {
               <label htmlFor="coverImage" className={styles.coverImageLabel}>
                 Selecione a imagem de capa:
               </label>
-              <input type="file" accept="image/png, image/jpeg" className={styles.fileInput} onChange={handleFile} />
+              <input type="file" accept="image/png, image/jpeg" className={styles.fileInput} onChange={handleFile} required />
 
               <div className={styles.teste}>
                 <div className={styles.teste1}>
@@ -104,7 +123,7 @@ export default function RegisterBook() {
                 </div>
               </div>
               <div className={styles.teste1}>
-                <span>Titulo</span>
+                <span>Título</span>
                 <input type="text" placeholder="Título" className={styles.input} value={title} onChange={(e) => setTitle(e.target.value)} required />
               </div>
               <div className={styles.teste1}>
@@ -117,11 +136,11 @@ export default function RegisterBook() {
               </div>
               <div className={styles.teste1}>
                 <span>Categoria</span>
-                <select className={styles.input} value={selectedCategories} onChange={(e) => setSelectedCategories(e.target.value)}>
+                <select className={styles.input} value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} required>
                   <option value="">Selecione uma categoria</option>
-                  {categories.map((categories) => (
-                    <option key={categories.id} value={categories.id}>
-                      {categories.name}
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
                     </option>
                   ))}
                 </select>

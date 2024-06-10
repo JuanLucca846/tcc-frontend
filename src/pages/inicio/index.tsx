@@ -95,7 +95,7 @@ export default function Index() {
     return <p>Carregando...</p>;
   }
 
-  console.log("User", user);
+  
 
   return user.admin ? <AdminPage totalBooks={totalBooks} totalPendingBooks={totalPendingBooks} totalUsers={totalUsers} totalBorrowedBooks={totalBorrowedBooks} /> : <UserPage />;
 }

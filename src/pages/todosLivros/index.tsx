@@ -15,11 +15,15 @@ type BookProps = {
     isbn: string;
     title: string;
     author: string;
-    category: string;
+    category: {
+      id: number,
+      name: string,
+    };
     shelf: string;
     bookcase: string;
     coverImage: string;
     description: string;
+    status: string;
   }>;
 };
 
@@ -32,6 +36,7 @@ export default function AllBooks({ books }: BookProps) {
       try {
         const response = await api.get("/book");
         const booksData = response.data;
+        console.log(booksData)
         setAllBooks(booksData.books);
       } catch (error) {
         toast.error("Erro ao carregar os livros");
@@ -76,6 +81,7 @@ export default function AllBooks({ books }: BookProps) {
               <thead>
                 <tr>
                   <th>Isbn</th>
+                  <th>Status</th>
                   <th>Capa</th>
                   <th>Título</th>
                   <th>Autor</th>
@@ -89,12 +95,13 @@ export default function AllBooks({ books }: BookProps) {
                 {allBooks.map((book) => (
                   <tr key={book.id}>
                     <td>{book.isbn}</td>
+                    <td>{book.status}</td>
                     <td>
                       <img src={`http://localhost:3000${book.coverImage}`} alt={book.title} className={styles.bookCoverImage} />
                     </td>
                     <td>{book.title}</td>
                     <td>{book.author}</td>
-                    <td>{book.category}</td>
+                    <td>{book.category.name}</td>
                     <td>{book.shelf}</td>
                     <td>{book.bookcase}</td>
                     <td>
