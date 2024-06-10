@@ -5,6 +5,7 @@ import { api } from "../../services/apiClient";
 import { AuthContext } from "../../contexts/AuthContext";
 import styles from "./styles.module.scss";
 import { Button } from "../../components/ui/button";
+import Footer from "../../components/Footer";
 
 type Book = {
   id: number;
@@ -96,6 +97,7 @@ function Index() {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }

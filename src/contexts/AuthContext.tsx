@@ -89,7 +89,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
       });
 
       toast.success("Sucesso");
-      Router.push("/inicio");
+
+      if(admin){
+        Router.push("/inicio");
+      }else{
+        Router.push("/minhaConta");
+      }   
     } catch (error) {
       toast.error("Email ou Senha incorreto");
       console.log("Erro", error);
