@@ -36,7 +36,6 @@ export default function AllBooks({ books }: BookProps) {
       try {
         const response = await api.get("/book");
         const booksData = response.data;
-        console.log(booksData)
         setAllBooks(booksData.books);
       } catch (error) {
         toast.error("Erro ao carregar os livros");
@@ -71,7 +70,7 @@ export default function AllBooks({ books }: BookProps) {
       <Head>
         <title>NossaBiblioteca - Início</title>
       </Head>
-      <div>
+      <div className={styles.page}>
         <AdminHeader />
         <div className={styles.container}>
           <Sidebar />

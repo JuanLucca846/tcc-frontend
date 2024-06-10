@@ -1,11 +1,11 @@
-// styles.module.scss
 .sidebar {
   background-color: var(--green-800);
   color: var(--green-100);
   width: 200px;
-  height: 100vh;
-  top: 0;
+  height: calc(100vh - 5rem);
+  top: 5rem;
   left: 0;
+  position: fixed;
 }
 
 .sidebar nav ul {

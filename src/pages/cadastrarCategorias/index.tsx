@@ -1,7 +1,6 @@
 import { canSSRAuth } from "../../utils/canSSRAuth";
 import Head from "next/head";
-import { Header } from "../../components/Header";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Sidebar } from "../../components/SideBar";
 import styles from "./styles.module.scss";
 import { api } from "../../services/apiClient";
@@ -11,7 +10,7 @@ import { AdminHeader } from "../../components/AdminHeader/indext";
 export default function RegisterCategory() {
   const [name, setCategoryName] = useState("");
   const [loading, setLoading] = useState(false);
-  
+
   async function handleRegister(event) {
     event.preventDefault();
     if (name === "") {
@@ -21,25 +20,25 @@ export default function RegisterCategory() {
 
     setLoading(true);
 
-    let data = {
-        name,
-      
-    };
+    let data = { name };
 
-    const response = await api.post("/category", data);;
-
-    setLoading(false);
-
-    toast.success("Categoria cadastrada com sucesso!");
-    setCategoryName("");
+    try {
+      const response = await api.post("/category", data);
+      setLoading(false);
+      toast.success("Categoria cadastrada com sucesso!");
+      setCategoryName("");
+    } catch (error) {
+      setLoading(false);
+      toast.error("Erro ao cadastrar a categoria");
+    }
   }
 
   return (
     <>
       <Head>
-        <title>NossaBiblioteca - Cadastrar Livro</title>
+        <title>NossaBiblioteca - Cadastrar Categoria</title>
       </Head>
-      <div>
+      <div className={styles.page}>
         <AdminHeader />
         <div className={styles.container}>
           <Sidebar />

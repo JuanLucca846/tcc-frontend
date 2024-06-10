@@ -16,14 +16,14 @@ function AdminPage({ totalBooks, totalPendingBooks, totalUsers, totalBorrowedBoo
       <Head>
         <title>NossaBiblioteca - Início</title>
       </Head>
-      <div>
+      <div className={styles.page}>
         <AdminHeader />
         <div className={styles.container}>
           <Sidebar />
           <div className={styles.content}>
-            <h1 className={styles.title}>Sistema NossaBiblioteca</h1>
+            <h1 className={styles.title}>Sistema NossaBiblioteca - Início</h1>
             <div className={styles.stats}>
-              <div className={styles.teste}>
+              <div className={styles.row}>
                 <div className={styles.stat}>
                   <FaBookOpenReader size={26} />
                   <h2>Livros Cadastrados</h2>
@@ -35,7 +35,7 @@ function AdminPage({ totalBooks, totalPendingBooks, totalUsers, totalBorrowedBoo
                   <span>Total: {totalPendingBooks}</span>
                 </div>
               </div>
-              <div className={styles.teste}>
+              <div className={styles.row}>
                 <div className={styles.stat}>
                   <FaRegUser size={26} />
                   <h2>Usuários Cadastrados</h2>
@@ -61,11 +61,22 @@ function UserPage() {
       <Head>
         <title>NossaBiblioteca - Início</title>
       </Head>
-      <UserHeader />
-      <div></div>
+      <div className={styles.page}>
+        <UserHeader />
+        <div className={styles.container}>
+          <Sidebar />
+          <div className={styles.content}>
+            <h1 className={styles.title}>Sistema NossaBiblioteca - Início</h1>
+            <div className={styles.message}>
+              <p>Bem-vindo ao sistema NossaBiblioteca. Selecione uma opção no menu ao lado para começar.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
+
 
 export default function Index() {
   const [totalBooks, setTotalBooks] = useState(0);

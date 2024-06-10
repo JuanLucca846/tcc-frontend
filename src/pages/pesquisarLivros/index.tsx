@@ -18,6 +18,7 @@ type Book = {
   bookcase: string;
   coverImage: string;
   description: string;
+  status: string;
 };
 
 export default function SearchBooks() {
@@ -45,7 +46,7 @@ export default function SearchBooks() {
       <Head>
         <title>NossaBiblioteca - Pesquisar</title>
       </Head>
-      <div>
+      <div className={styles.page}>
         <AdminHeader />
         <div className={styles.container}>
           <Sidebar />
@@ -77,6 +78,7 @@ export default function SearchBooks() {
                       <th>Categoria</th>
                       <th>Prateleira</th>
                       <th>Estante</th>
+                      <th>Status</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -95,6 +97,7 @@ export default function SearchBooks() {
                         <td>{book.category.name}</td>
                         <td>{book.shelf}</td>
                         <td>{book.bookcase}</td>
+                        <td>{book.status}</td>
                       </tr>
                     ))}
                   </tbody>

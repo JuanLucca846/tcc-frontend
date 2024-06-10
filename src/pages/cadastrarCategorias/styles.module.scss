@@ -1,100 +1,105 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 5rem; // Space for fixed header
+}
+
 .container {
-    display: flex;
-  }
-  
-  .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: 500px;
-  }
-  
-  .title {
-    color: var(--black);
-    font-size: 2rem;
-    margin-top: 60px;
-    border: 2px solid #ccc;
-    background-color: yellow;
-    border-radius: 10px;
-    padding-left: 150px;
-    padding-right: 150px;
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-  }
-  
-  .form {
-    margin: 0 auto;
-    border: 1px solid var(--black);
-    border-radius: 8px;
-    margin-top: 1rem;
-    padding-left: 100px;
-    padding-right: 100px;
-    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  .teste {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .teste1 {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .fileInput {
-    margin-top: 10px;
-    margin-bottom: 1rem;
-  }
-  
-  .buttonAdd {
-    background-color: #4caf50;
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-bottom: 10px;
-  }
-  
-  .buttonAdd:hover {
-    background-color: #45a049;
-  }
-  
-  .coverImageLabel {
-    margin-bottom: 1rem;
-  }
-  
-  .book {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .bookCoverImage {
-    width: 100px;
-    height: 100px;
-    margin-right: 1rem;
-  }
-  
-  .bookDetails h2 {
-    margin-bottom: 0.5rem;
-  }
-  
-  .bookDetails p {
-    margin-bottom: 0.5rem;
-  }
-  
+  display: flex;
+  flex: 1;
+}
+
+.content {
+  margin-left: 200px; // Space for fixed sidebar
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.title {
+  color: var(--black);
+  font-size: 2rem;
+  margin-top: 20px;
+  border: 2px solid #ccc;
+  background-color: yellow;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.form {
+  margin: 0 auto;
+  border: 1px solid var(--black);
+  border-radius: 8px;
+  margin-top: 1rem;
+  padding: 20px;
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.3);
+}
+
+.teste {
+  display: flex;
+  justify-content: space-between;
+}
+
+.teste1 {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.fileInput {
+  margin-top: 10px;
+  margin-bottom: 1rem;
+}
+
+.buttonAdd {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 10px;
+}
+
+.buttonAdd:hover {
+  background-color: #45a049;
+}
+
+.coverImageLabel {
+  margin-bottom: 1rem;
+}
+
+.book {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.bookCoverImage {
+  width: 100px;
+  height: 100px;
+  margin-right: 1rem;
+}
+
+.bookDetails h2 {
+  margin-bottom: 0.5rem;
+}
+
+.bookDetails p {
+  margin-bottom: 0.5rem;
+}

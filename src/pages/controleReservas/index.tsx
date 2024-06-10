@@ -77,7 +77,7 @@ export default function AllReservationsControl() {
       <Head>
         <title>NossaBiblioteca - Reservas</title>
       </Head>
-      <div>
+      <div className={styles.page}>
         <AdminHeader />
         <div className={styles.container}>
           <Sidebar />

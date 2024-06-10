@@ -96,7 +96,7 @@ export default function RegisterBook() {
       <Head>
         <title>NossaBiblioteca - Cadastrar Livro</title>
       </Head>
-      <div>
+      <div className={styles.page}>
         <AdminHeader />
         <div className={styles.container}>
           <Sidebar />

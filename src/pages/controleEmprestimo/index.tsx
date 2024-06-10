@@ -79,7 +79,7 @@ export default function AllLoansControl() {
       <Head>
         <title>NossaBiblioteca - Reservas</title>
       </Head>
-      <div>
+      <div className={styles.page}>
         <AdminHeader />
         <div className={styles.container}>
           <Sidebar />

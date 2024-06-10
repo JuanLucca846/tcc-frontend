@@ -1,23 +1,30 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 5rem; // Space for fixed header
+}
+
 .container {
   display: flex;
+  flex: 1;
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: 500px;
+  margin-left: 200px; // Space for fixed sidebar
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .title {
   color: var(--black);
   font-size: 2rem;
-  margin-top: 60px;
+  margin-top: 20px;
   border: 2px solid #ccc;
   background-color: yellow;
   border-radius: 10px;
-  padding-left: 150px;
-  padding-right: 150px;
+  padding: 20px;
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
@@ -27,8 +34,7 @@
   border: 1px solid var(--black);
   border-radius: 8px;
   margin-top: 1rem;
-  padding-left: 100px;
-  padding-right: 100px;
+  padding: 20px;
   box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -40,6 +46,7 @@
 .teste1 {
   display: flex;
   flex-direction: column;
+  margin-top: 1rem;
 }
 
 .input {
