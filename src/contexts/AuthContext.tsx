@@ -90,11 +90,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       toast.success("Sucesso");
 
-      if(admin){
+      if (admin) {
         Router.push("/inicio");
-      }else{
+      } else {
         Router.push("/minhaConta");
-      }   
+      }
     } catch (error) {
       toast.error("Email ou Senha incorreto");
       console.log("Erro", error);
@@ -122,7 +122,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   function signOut() {
     try {
       destroyCookie(undefined, "@nextauth.token");
-      setUser(null); 
+      setUser(null);
       Router.push("/");
     } catch (error) {
       console.log("Erro", error);

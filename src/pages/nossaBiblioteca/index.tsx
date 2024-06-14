@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { UserHeader } from "../../components/UserHeader";
 import { api } from "../../services/apiClient";
 import { toast } from "react-toastify";
-import { Typewriter } from 'react-simple-typewriter';
+import { Typewriter } from "react-simple-typewriter";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -73,7 +73,7 @@ export default function IndexUser({ books }: BookProps) {
     slidesToScroll: 3,
     autoplay: true,
     autoplaySpeed: 2000,
-    pauseOnHover: true
+    pauseOnHover: true,
   };
 
   return (
@@ -85,15 +85,7 @@ export default function IndexUser({ books }: BookProps) {
         <UserHeader />
         <div className={styles.pageContainer}>
           <h1 className={styles.typewriter}>
-            <Typewriter
-              words={['Bem-vindo à NossaBiblioteca']}
-              loop={0}
-              cursor
-              cursorStyle="_"
-              typeSpeed={100}
-              deleteSpeed={50}
-              delaySpeed={1000}
-            />
+            <Typewriter words={["Bem-vindo à NossaBiblioteca"]} loop={0} cursor cursorStyle="_" typeSpeed={100} deleteSpeed={50} delaySpeed={1000} />
           </h1>
           <div className={styles.carouselContainer}>
             <Slider {...settings}>
@@ -111,8 +103,7 @@ export default function IndexUser({ books }: BookProps) {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }
-

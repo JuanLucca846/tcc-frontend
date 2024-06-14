@@ -39,7 +39,7 @@ export function UserHeader() {
 
   const handleSignOut = async () => {
     await signOut();
-    setUser(null); 
+    setUser(null);
   };
 
   return (
@@ -53,7 +53,7 @@ export function UserHeader() {
         </Link>
         <nav className={styles.menuNav}>
           <Link href={"/catalogoLivros"}>
-          <span>Ver Catalogo</span>
+            <span>Ver Catalogo</span>
           </Link>
           {user ? (
             <>

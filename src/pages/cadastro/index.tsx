@@ -10,7 +10,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { toast } from "react-toastify";
 import { api } from "../../services/apiClient";
 import { UserHeader } from "../../components/UserHeader";
-import selectCourseStyle from '../cadastro/styles.module.scss'
+import selectCourseStyle from "../cadastro/styles.module.scss";
 import Footer from "../../components/Footer";
 
 export default function Register() {
@@ -72,7 +72,7 @@ export default function Register() {
       <Head>
         <title>NossaBiblioteca - Cadastro</title>
       </Head>
-      <UserHeader/>
+      <UserHeader />
       <div className={styles.containerCenter}>
         <Image src={logo} alt="Logo Biblioteca" />
 
@@ -101,7 +101,7 @@ export default function Register() {
           </Link>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

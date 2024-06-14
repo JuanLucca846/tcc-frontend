@@ -67,9 +67,9 @@ export default function Home() {
           <Link href="/cadastro" className={styles.text}>
             Recuperar conta
           </Link>
-        </div>  
+        </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

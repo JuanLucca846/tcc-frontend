@@ -1,54 +1,54 @@
 .rentedBooksList {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .rentedBookItem {
-    display: flex;
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center; 
-    text-align: center; 
-    margin: 10px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 0.3rem;
-    transition: background-color 0.2s;
-    cursor: pointer;
-  
-    &:hover {
-      background-color: #e0e0e0;
-    }
-  }
-  
-  .bookTitle,
-  .bookAuthor {
-    color: var(--black);
-    text-align: center;
-  }
-  
-  .myBooks {
-    color: var(--green-800);
-    text-align: center;
-  }
-
-  .buttonReturnBooking{
-    border-radius: 0.3rem;
-    height: 40px;
-    border: 5;
-    background-color: var(--green-800);
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--white);
-    cursor: pointer; 
-    transition: background-color 0.2s;
-
-    &:hover {
-      background-color: var(--green-900);
-    }
+  list-style: none;
+  padding: 0;
 }
 
-.h2{
+.rentedBookItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 0.3rem;
+  transition: background-color 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+.bookTitle,
+.bookAuthor {
+  color: var(--black);
+  text-align: center;
+}
+
+.myBooks {
+  color: var(--green-800);
+  text-align: center;
+}
+
+.buttonReturnBooking {
+  border-radius: 0.3rem;
+  height: 40px;
+  border: 5;
+  background-color: var(--green-800);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--white);
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: var(--green-900);
+  }
+}
+
+.h2 {
   background-color: var(--green-900);
 }

@@ -1,134 +1,130 @@
+.container {
+  max-width: 720px;
+  margin: 4rem auto;
+  padding: 0 2rem;
 
-
-.container{
-    max-width: 720px;
-    margin: 4rem auto;
-    padding: 0 2rem;
-
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
-.container h1{
-    color: var(--green-800);
+.container h1 {
+  color: var(--green-800);
 }
 
-.form{
-    display: flex;
-    flex-direction: column;
-    margin: 1rem 0;
+.form {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
 }
 
-.input{
-    border-radius: 0.3rem;
-    margin-bottom: 1rem;
-    color: var(--gray-100);
-    background-color: var(--white);
-    border: 1px solid var(--green-800);
-    height: 40px;
-    padding: 0 0.5rem;
+.input {
+  border-radius: 0.3rem;
+  margin-bottom: 1rem;
+  color: var(--gray-100);
+  background-color: var(--white);
+  border: 1px solid var(--green-800);
+  height: 40px;
+  padding: 0 0.5rem;
 }
 
-.buttonAdd{
-    border-radius: 0.3rem;
-    height: 40px;
-    border: 0;
-    background-color: var(--green-800);
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--white);
+.buttonAdd {
+  border-radius: 0.3rem;
+  height: 40px;
+  border: 0;
+  background-color: var(--green-800);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--white);
 }
 
-.buttonRemove{
-    border-radius: 0.3rem;
-    height: 40px;
-    border: 0;
-    background-color: var(--green-800);
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--white);
+.buttonRemove {
+  border-radius: 0.3rem;
+  height: 40px;
+  border: 0;
+  background-color: var(--green-800);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--white);
 }
 
-.buttonUpdate{
-    border-radius: 0.3rem;
-    height: 40px;
-    border: 0;
-    background-color: var(--green-800);
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--white);
+.buttonUpdate {
+  border-radius: 0.3rem;
+  height: 40px;
+  border: 0;
+  background-color: var(--green-800);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--white);
 }
 
-.chooseFormAdd{
-    border-radius: 0.3rem;
-    height: 40px;
-    border: 5;
-    background-color: var(--green-800);
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--white);
-    margin: 5px;
+.chooseFormAdd {
+  border-radius: 0.3rem;
+  height: 40px;
+  border: 5;
+  background-color: var(--green-800);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--white);
+  margin: 5px;
 }
 
-.chooseFormRemove{
-    border-radius: 0.3rem;
-    height: 40px;
-    border: 5;
-    background-color: var(--green-800);
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--white);
-    margin: 5px;
+.chooseFormRemove {
+  border-radius: 0.3rem;
+  height: 40px;
+  border: 5;
+  background-color: var(--green-800);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--white);
+  margin: 5px;
 }
 
-.chooseFormUpdate{
-    border-radius: 0.3rem;
-    height: 40px;
-    border: 5;
-    background-color: var(--green-800);
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--white);
-    margin: 5px;
+.chooseFormUpdate {
+  border-radius: 0.3rem;
+  height: 40px;
+  border: 5;
+  background-color: var(--green-800);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--white);
+  margin: 5px;
 }
 
-.labelAvatar{
-    width: 100%;
-    height: 250px;
-    background-color: var(--white);
-    border: 1px solid var(--green-800);
-    margin-bottom: 1rem;
-    border-radius: 0.3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+.labelAvatar {
+  width: 100%;
+  height: 250px;
+  background-color: var(--white);
+  border: 1px solid var(--green-800);
+  margin-bottom: 1rem;
+  border-radius: 0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 
-    input{
-        display: none;
-    }
+  input {
+    display: none;
+  }
 
-    span{
-        z-index: 99;
-        position: absolute;
-        opacity: 0.7;
-        transform: all 0.5%;
-        transition: all 0.7s;
-    }
+  span {
+    z-index: 99;
+    position: absolute;
+    opacity: 0.7;
+    transform: all 0.5%;
+    transition: all 0.7s;
+  }
 
-    span:hover{
-        opacity: 1;
-        transform: scale(1.1);
-    }
-
+  span:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
 }
 
-.coverImageLabel{
-    margin-top: 1rem;
+.coverImageLabel {
+  margin-top: 1rem;
 }
 
-.fileInput{
-    margin-bottom: 1rem;
+.fileInput {
+  margin-bottom: 1rem;
 }

@@ -16,8 +16,8 @@ type BookProps = {
     title: string;
     author: string;
     category: {
-      id: number,
-      name: string,
+      id: number;
+      name: string;
     };
     shelf: string;
     bookcase: string;
@@ -30,6 +30,7 @@ type BookProps = {
 export default function AllBooks({ books }: BookProps) {
   const [allBooks, setAllBooks] = useState<BookProps["books"]>(books || []);
   const [bookId, setBookId] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -65,6 +66,8 @@ export default function AllBooks({ books }: BookProps) {
     }
   };
 
+  const filteredBooks = allBooks.filter((book) => book.status.toLowerCase().includes(searchQuery.toLowerCase()));
+
   return (
     <>
       <Head>
@@ -76,6 +79,7 @@ export default function AllBooks({ books }: BookProps) {
           <Sidebar />
           <div className={styles.content}>
             <h1 className={styles.title}>Sistema NossaBiblioteca - Livros</h1>
+            <input type="text" placeholder="Buscar por status" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className={styles.searchInput} />
             <table className={styles.bookTable}>
               <thead>
                 <tr>
@@ -91,7 +95,7 @@ export default function AllBooks({ books }: BookProps) {
                 </tr>
               </thead>
               <tbody>
-                {allBooks.map((book) => (
+                {filteredBooks.map((book) => (
                   <tr key={book.id}>
                     <td>{book.isbn}</td>
                     <td>{book.status}</td>

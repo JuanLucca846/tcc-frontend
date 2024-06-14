@@ -61,7 +61,7 @@ export default function IndexUser({ books }: BookProps) {
   };
 
   const handleSearchSubmit = async () => {
-    setPage(1); 
+    setPage(1);
     fetchBooks();
   };
 
@@ -128,7 +128,7 @@ export default function IndexUser({ books }: BookProps) {
           </h2>
           <div className={styles.bookListContainer}>
             {allBooks.map((book) => (
-              <div key={book.id} className={`${styles.bookCard} ${expandedDescription === book.id ? styles.expanded : ''}`}>
+              <div key={book.id} className={`${styles.bookCard} ${expandedDescription === book.id ? styles.expanded : ""}`}>
                 <img src={`http://localhost:3000${book.coverImage}`} alt={book.title} className={styles.bookCoverImage} />
                 <h3>{book.title}</h3>
                 <p>Autor: {book.author}</p>
@@ -148,24 +148,20 @@ export default function IndexUser({ books }: BookProps) {
             ))}
           </div>
           <div className={styles.paginationContainer}>
-            <button
-              onClick={() => handlePageChange(page - 1)}
-              disabled={page === 1}
-            >
+            <button onClick={() => handlePageChange(page - 1)} disabled={page === 1}>
               Anterior
             </button>
-            <span>Página {page} de {totalPages}</span>
-            <button
-              onClick={() => handlePageChange(page + 1)}
-              disabled={page === totalPages}
-            >
+            <span>
+              Página {page} de {totalPages}
+            </span>
+            <button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages}>
               Próxima
             </button>
           </div>
         </div>
       </div>
       <div className={styles.footer}>
-      <Footer/>
+        <Footer />
       </div>
     </>
   );

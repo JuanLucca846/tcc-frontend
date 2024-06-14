@@ -47,7 +47,7 @@ export default function RegisterBook() {
       shelf,
       bookcase,
       coverImage,
-      selectedCategory
+      selectedCategory,
     });
 
     if (!coverImage) {

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React, { useState, FormEvent } from "react";
 import { Sidebar } from "../../components/SideBar";
-import styles from '../pesquisarLivros/styles.module.scss';
+import styles from "../pesquisarLivros/styles.module.scss";
 import { api } from "../../services/apiClient";
 import { toast } from "react-toastify";
 import { AdminHeader } from "../../components/AdminHeader/indext";
@@ -22,16 +22,16 @@ type Book = {
 };
 
 export default function SearchBooks() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState<Book[]>([]);
 
   const handleSearch = async (e: FormEvent) => {
     e.preventDefault();
-    
+
     try {
       const response = await api.get(`/book`, {
         params: {
-          title: searchTerm,
+          title: searchQuery,
         },
       });
       setResults(response.data.books);
@@ -54,13 +54,7 @@ export default function SearchBooks() {
             <h1 className={styles.title}>Sistema NossaBiblioteca - Pesquisar</h1>
             <div className={styles.searchBox}>
               <form className={styles.searchForm} onSubmit={handleSearch}>
-                <input
-                  className={styles.input}
-                  type="text"
-                  placeholder="Buscar por nome..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
+                <input className={styles.input} type="text" placeholder="Buscar por nome..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
                 <button className={styles.buttonSearch} type="submit">
                   Buscar
                 </button>
@@ -86,11 +80,7 @@ export default function SearchBooks() {
                       <tr key={book.id}>
                         <td>{book.isbn}</td>
                         <td>
-                          <img
-                            src={`http://localhost:3000${book.coverImage}`}
-                            alt={book.title}
-                            className={styles.bookCoverImage}
-                          />
+                          <img src={`http://localhost:3000${book.coverImage}`} alt={book.title} className={styles.bookCoverImage} />
                         </td>
                         <td>{book.title}</td>
                         <td>{book.author}</td>

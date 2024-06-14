@@ -77,7 +77,6 @@ function UserPage() {
   );
 }
 
-
 export default function Index() {
   const [totalBooks, setTotalBooks] = useState(0);
   const [totalPendingBooks, setTotalPendingBooks] = useState(0);
@@ -105,8 +104,6 @@ export default function Index() {
   if (!user) {
     return <p>Carregando...</p>;
   }
-
-  
 
   return user.admin ? <AdminPage totalBooks={totalBooks} totalPendingBooks={totalPendingBooks} totalUsers={totalUsers} totalBorrowedBooks={totalBorrowedBooks} /> : <UserPage />;
 }

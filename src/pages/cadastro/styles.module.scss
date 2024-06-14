@@ -1,14 +1,14 @@
-.selectCourse{
-    margin-bottom: 1rem;
-    
-    border: 0;
-    border-radius: 0.5rem;
-    background-color: var(--white);
-    color: var(--gray-100);
-    padding: 1rem;
-    border: 2px solid var(--green-800);
+.selectCourse {
+  margin-bottom: 1rem;
+
+  border: 0;
+  border-radius: 0.5rem;
+  background-color: var(--white);
+  color: var(--gray-100);
+  padding: 1rem;
+  border: 2px solid var(--green-800);
 }
 
-.selectCourse::placeholder{
-    color: var(--gray-100);
+.selectCourse::placeholder {
+  color: var(--gray-100);
 }

@@ -28,6 +28,7 @@ type ReservationProps = {
 export default function AllReservationsControl() {
   const [allReservations, setAllReservations] = useState<ReservationProps[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -68,6 +69,8 @@ export default function AllReservationsControl() {
     }
   };
 
+  const filteredReservations = allReservations.filter((reservation) => reservation.user.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
   if (loading) {
     return <div>Carregando...</div>;
   }
@@ -83,6 +86,7 @@ export default function AllReservationsControl() {
           <Sidebar />
           <div className={styles.content}>
             <h1 className={styles.title}>Sistema NossaBiblioteca - Reservas</h1>
+            <input type="text" placeholder="Buscar por nome de usuário" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className={styles.searchInput} />
             <table className={styles.reservationTable}>
               <thead>
                 <tr>
@@ -96,27 +100,20 @@ export default function AllReservationsControl() {
                 </tr>
               </thead>
               <tbody>
-                {allReservations.map((reservation) => (
+                {filteredReservations.map((reservation) => (
                   <tr key={reservation.id}>
                     <td>{reservation.user.name}</td>
                     <td>{reservation.book.isbn}</td>
                     <td>
-                      <img
-                        src={`http://localhost:3000${reservation.book.coverImage}`}
-                        alt={reservation.book.title}
-                        className={styles.bookCoverImage}
-                      />
+                      <img src={`http://localhost:3000${reservation.book.coverImage}`} alt={reservation.book.title} className={styles.bookCoverImage} />
                     </td>
                     <td>{reservation.book.title}</td>
                     <td>{reservation.book.author}</td>
                     <td>{reservation.book.status}</td>
                     <td>
                       {reservation.book.status === "Reservado" && (
-                        <button
-                          className={styles.button}
-                          onClick={() => handleMoveToLoan(reservation.id)}
-                        >
-                          Mover para Empréstimo
+                        <button className={styles.button} onClick={() => handleMoveToLoan(reservation.id)}>
+                          Efetuar Empréstimo
                         </button>
                       )}
                     </td>
