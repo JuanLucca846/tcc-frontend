@@ -1,7 +1,8 @@
 import axios, { AxiosError } from "axios";
 import { parseCookies } from "nookies";
 import { AuthTokenError } from "./errors/AuthTokenError";
-import { signOut } from "../contexts/AuthContext";
+import { AuthContext } from "../contexts/AuthContext";
+import { useContext } from "react";
 
 export function setupAPIClient(ctx = undefined) {
   let cookies = parseCookies(ctx);
@@ -13,12 +14,18 @@ export function setupAPIClient(ctx = undefined) {
     },
   });
 
+  const getSignOut = () => {
+    const { signOut } = useContext(AuthContext);
+    return signOut;
+  };
+
   api.interceptors.response.use(
     (response) => {
       return response;
     },
     (error: AxiosError) => {
       if (error.response.status === 401) {
+        const signOut = getSignOut();
         if (typeof window !== undefined) {
           signOut();
         } else {
