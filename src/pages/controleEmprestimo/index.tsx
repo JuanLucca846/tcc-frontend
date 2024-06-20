@@ -118,7 +118,7 @@ export default function AllLoansControl() {
                     <td>{loan.user.name}</td>
                     <td>{loan.book.isbn}</td>
                     <td>
-                      <img src={`http://localhost:3000${loan.book.coverImage}`} alt={loan.book.title} className={styles.bookCoverImage} />
+                      <img src={`https://tcc-backend-1.onrender.com${loan.book.coverImage}`} alt={loan.book.title} className={styles.bookCoverImage} />
                     </td>
                     <td>{loan.book.title}</td>
                     <td>{loan.book.author}</td>

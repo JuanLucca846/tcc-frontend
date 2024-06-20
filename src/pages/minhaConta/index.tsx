@@ -98,7 +98,7 @@ function Index() {
             {reservedBooks.length > 0 ? (
               reservedBooks.map((book) => (
                 <div key={book.id} className={styles.bookCard}>
-                  <img src={`http://localhost:3000${book.coverImage}`} alt={book.title} className={styles.bookCoverImage} />
+                  <img src={`https://tcc-backend-1.onrender.com${book.coverImage}`} alt={book.title} className={styles.bookCoverImage} />
                   <div className={styles.bookInfo}>
                     <h3>{book.title}</h3>
                     <p>Autor: {book.author}</p>

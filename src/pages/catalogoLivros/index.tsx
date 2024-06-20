@@ -129,7 +129,7 @@ export default function IndexUser({ books }: BookProps) {
           <div className={styles.bookListContainer}>
             {allBooks.map((book) => (
               <div key={book.id} className={`${styles.bookCard} ${expandedDescription === book.id ? styles.expanded : ""}`}>
-                <img src={`http://localhost:3000${book.coverImage}`} alt={book.title} className={styles.bookCoverImage} />
+                <img src={`https://tcc-backend-1.onrender.com${book.coverImage}`} alt={book.title} className={styles.bookCoverImage} />
                 <h3>{book.title}</h3>
                 <p>Autor: {book.author}</p>
                 <p>

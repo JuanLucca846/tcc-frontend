@@ -100,7 +100,7 @@ export default function AllBooks({ books }: BookProps) {
                     <td>{book.isbn}</td>
                     <td>{book.status}</td>
                     <td>
-                      <img src={`http://localhost:3000${book.coverImage}`} alt={book.title} className={styles.bookCoverImage} />
+                      <img src={`https://tcc-backend-1.onrender.com${book.coverImage}`} alt={book.title} className={styles.bookCoverImage} />
                     </td>
                     <td>{book.title}</td>
                     <td>{book.author}</td>

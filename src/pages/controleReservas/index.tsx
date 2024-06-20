@@ -105,7 +105,7 @@ export default function AllReservationsControl() {
                     <td>{reservation.user.name}</td>
                     <td>{reservation.book.isbn}</td>
                     <td>
-                      <img src={`http://localhost:3000${reservation.book.coverImage}`} alt={reservation.book.title} className={styles.bookCoverImage} />
+                      <img src={`https://tcc-backend-1.onrender.com${reservation.book.coverImage}`} alt={reservation.book.title} className={styles.bookCoverImage} />
                     </td>
                     <td>{reservation.book.title}</td>
                     <td>{reservation.book.author}</td>
