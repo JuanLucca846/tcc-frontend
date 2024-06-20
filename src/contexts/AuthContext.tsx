@@ -3,6 +3,7 @@ import { destroyCookie, setCookie, parseCookies } from "nookies";
 import Router from "next/router";
 import { api } from "../services/apiClient";
 import { toast } from "react-toastify";
+import { registerSignOutCallback, signOut as authSignOut } from "../services/auth";
 
 type AuthContextData = {
   user: UserProps | null;
@@ -59,6 +60,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
           signOut();
         });
     }
+
+    registerSignOutCallback(() => setUser(null));
   }, []);
 
   async function signIn({ email, password }: SignInProps) {
@@ -71,7 +74,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const { id, name, token } = response.data;
 
       setCookie(undefined, "@nextauth.token", token, {
-        maxAge: 60 * 60 * 24 * 30, // 30 dias
+        maxAge: 60 * 60 * 24 * 30,
         path: "/",
       });
 
@@ -120,13 +123,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   function signOut() {
-    try {
-      destroyCookie(undefined, "@nextauth.token");
-      setUser(null);
-      Router.push("/");
-    } catch (error) {
-      console.log("Erro", error);
-    }
+    authSignOut();
   }
 
   return <AuthContext.Provider value={{ user, setUser, isAuthenticated, isAdmin, signIn, signOut, signUp }}>{children}</AuthContext.Provider>;
