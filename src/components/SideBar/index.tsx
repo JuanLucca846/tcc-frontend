@@ -39,9 +39,6 @@ export function Sidebar() {
           <li>
             <Link href="/controleEmprestimo">Controle de Emprestimos</Link>
           </li>
-          <li>
-            <Link href="/livros-pendentes">Livros Pendentes</Link>
-          </li>
         </ul>
       </nav>
     </div>
